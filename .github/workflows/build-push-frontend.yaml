@@ -46,7 +46,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/gamification-frontend
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/gamification-frontend
           tags: |
             type=ref,event=branch
             type=sha
