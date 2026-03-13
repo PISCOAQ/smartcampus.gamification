@@ -1,6 +1,4 @@
 image:
-  repository: ghcr.io/piscoaq/gamification-engine
-  tag: master
   pullPolicy: Always
 
 httpRoute:
@@ -42,10 +40,12 @@ service:
 livenessProbe:
   tcpSocket:
     port: 8010
-  initialDelaySeconds: 15
+  initialDelaySeconds: 30
   periodSeconds: 15
+  failureThreshold: 10
 readinessProbe:
   tcpSocket:
     port: 8010
-  initialDelaySeconds: 15
+  initialDelaySeconds: 30
   periodSeconds: 30
+  failureThreshold: 10

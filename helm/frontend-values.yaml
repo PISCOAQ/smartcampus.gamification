@@ -1,6 +1,4 @@
 image:
-  repository: ghcr.io/piscoaq/gamification-frontend
-  tag: master
   pullPolicy: Always
 
 httpRoute:

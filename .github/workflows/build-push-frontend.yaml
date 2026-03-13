@@ -55,7 +55,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./gamification-frontend
           push: true
           build-args: |
             "REACT_APP_API_URL=https://gamification-engine.polyglot-edu.com/gamification"
