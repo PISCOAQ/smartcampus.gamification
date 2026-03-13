@@ -13,11 +13,20 @@ RUN --mount=type=cache,target=/root/.m2,source=/.m2,from=smartcommunitylab/gamif
 
 FROM eclipse-temurin:11-alpine
 ARG VER=3.0.0
+ARG USER=gamification
+ARG USER_ID=1005
+ARG USER_GROUP=gamification
+ARG USER_GROUP_ID=1005
+ARG USER_HOME=/home/${USER}
 ENV FOLDER=/tmp/target
+#dslab.playandgo.engine-1.0.jar
 ENV APP=game-engine.web
 ENV VER=${VER}
-# No adduser/addgroup: avoids "permission denied" in rootless Docker/Podman builds.
-# Runtime user is enforced by Kubernetes securityContext.runAsUser (e.g. 10000).
-WORKDIR /app
-COPY --from=mvn /tmp/game-engine.web/target/${APP}.jar /app
+# create a user group and a user
+RUN  addgroup -g ${USER_GROUP_ID} ${USER_GROUP}; \
+     adduser -u ${USER_ID} -D -g '' -h ${USER_HOME} -G ${USER_GROUP} ${USER} ;
+
+WORKDIR ${USER_HOME}
+COPY --chown=gamification:gamification --from=mvn /tmp/game-engine.web/target/${APP}.jar ${USER_HOME}
+USER gamification
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar ${APP}.jar --spring.profiles.active=sec"]
