@@ -19,3 +19,11 @@ readinessProbe:
     port: http
   initialDelaySeconds: 15
   periodSeconds: 30
+
+volumes:
+  - name: client-tmp
+    emptyDir: {}
+
+volumeMounts:
+  - name: client-tmp
+    mountPath: /home/gamification/client_temp
