@@ -126,6 +126,6 @@ jobs:
           helm upgrade --install gamification-frontend "${HELM_CHART_URL}" \
             --version "${HELM_CHART_VERSION}" \
             --namespace "${K8S_NAMESPACE}" \
-            --values ./helm/values.yaml \
+            --values ./helm/frontend-values.yaml \
             --set image.repository="${IMAGE_REPOSITORY}" \
             --set image.tag="${IMAGE_TAG}"
