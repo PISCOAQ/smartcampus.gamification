@@ -17,7 +17,16 @@ appConfigMaps:
             password: user
             role: user
 
+# Writable log directory for log4j (runAsUser 10000 cannot write to image WORKDIR)
+volumes:
+  - name: logs
+    emptyDir: {}
+volumeMounts:
+  - name: logs
+    mountPath: /tmp/logs
 env:
+  - name: JAVA_OPTS
+    value: "-DlogFolder=/tmp/logs"
   - name: SPRING_DATA_MONGODB_URL
     valueFrom:
       secretKeyRef:

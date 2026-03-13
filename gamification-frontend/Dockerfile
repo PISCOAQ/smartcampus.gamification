@@ -10,7 +10,7 @@ COPY tsconfig.json ./
 RUN --mount=type=cache,target=/app/node_modules/,source=/node_modules/,from=smartcommunitylab/gamification-engine-frontend:cache npm install
 RUN --mount=type=cache,target=/app/node_modules/,source=/node_modules/,from=smartcommunitylab/gamification-engine-frontend:cache npm run build
 
-FROM nginx:alpine
+FROM ghcr.io/nginx/nginx-unprivileged:1.29.5-alpine
 ARG USER=gamification
 ARG USER_ID=1005
 ARG USER_GROUP=gamification
