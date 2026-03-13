@@ -49,3 +49,6 @@ readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 30
   failureThreshold: 10
+
+securityContext:
+  readOnlyRootFilesystem: false
