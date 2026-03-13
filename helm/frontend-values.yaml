@@ -1,0 +1,23 @@
+image:
+  repository: ghcr.io/piscoaq/gamification-frontend
+  tag: master
+  pullPolicy: Always
+
+httpRoute:
+  enabled: false
+
+service:
+  port: 8080
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 15
+  periodSeconds: 15
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 15
+  periodSeconds: 30

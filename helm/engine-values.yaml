@@ -1,0 +1,51 @@
+image:
+  repository: ghcr.io/piscoaq/gamification-engine
+  tag: master
+  pullPolicy: Always
+
+httpRoute:
+  enabled: false
+
+appConfigMaps:
+  - name: users-config
+    mountPath: /app/config
+    value:
+      users.yml: |-
+        users:
+          - username: admin
+            password: admin
+            role: admin
+          - username: user
+            password: user
+            role: user
+
+env:
+  - name: SPRING_DATA_MONGODB_URL
+    valueFrom:
+      secretKeyRef:
+        name: mongodb-gamification-credentials
+        key: connectionString
+  - name: ZIPKIN_ENABLED
+    value: "false"
+  - name: SPRING_PROFILE
+    value: "platform"
+  - name: USERS_FILE
+    value: "/app/config/users.yml"
+  - name: GAMIFICATION_REVERSEPROXY
+    value: gamification-engine.polyglot-edu.com
+  - name: AAC_URL
+    value: gamification-engine.polyglot-edu.com/aac
+
+service:
+  port: 8010
+
+livenessProbe:
+  tcpSocket:
+    port: 8010
+  initialDelaySeconds: 15
+  periodSeconds: 15
+readinessProbe:
+  tcpSocket:
+    port: 8010
+  initialDelaySeconds: 15
+  periodSeconds: 30
